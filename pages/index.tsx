@@ -1,19 +1,24 @@
 import { useState } from "react";
+import Image from "next/image";
+
+const imageloader = () => {
+  return `https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/271/taco_1f32e.png`;
+};
 
 const Home = () => {
   const [food, setFood] = useState("sushi");
   return (
     <div className="m-8">
       {/* title */}
-      <h1 className="mt-32 text-3xl italic flex justify-center">
+      <h1 className="mt-32 text-6xl italic flex justify-center">
         what should i eat?
       </h1>
       {/* subtitle */}
-      <h1 className="mt-8 text-3xl italic flex justify-center">{food}</h1>
+      <h1 className="mt-8 text-4xl underline flex justify-center">{food}</h1>
       {/* button */}
       <div className="mt-8 flex justify-center">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-green-700 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
           onClick={async () => {
             // You can use any data fetching library
             const res = await fetch("/api/hello");
@@ -22,10 +27,20 @@ const Home = () => {
             setFood(json.name);
           }}
         >
-          click me
+          reroll
         </button>
       </div>
-
+      {/* image */}
+      <div className="mt-8 flex justify-center">
+        <Image
+          loader={imageloader}
+          src={imageloader()}
+          alt="food"
+          width={400}
+          height={400}
+          className="rounded-full"
+        />
+      </div>
       {/* inputfield */}
       <h2 className="mt-32 flex justify-center">
         want to add more food to the db?
@@ -39,7 +54,7 @@ const Home = () => {
       </div>
       <div className="mt-2 flex justify-center">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-yellow-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={async () => {
             // You can use any data fetching library
             const res = await fetch("/api/addFood", {
