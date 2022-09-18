@@ -3,9 +3,9 @@ import { useState } from "react";
 import Image from "next/image";
 
 //prisma
-import prisma from "../../lib/prisma";
+import prisma from "../lib/prisma";
 
-import Footer from "../components/Footer";
+import Footer from "../src/components/Footer";
 
 export const getStaticProps = async () => {
   const allFood = await prisma.food.findMany({
@@ -24,7 +24,7 @@ export const getStaticProps = async () => {
   };
 };
 
-type Props = { 
+type Props = {
   allFood: {
     id: number;
     name: string;
@@ -38,17 +38,20 @@ const imageloader = () => {
 const Home: React.FC<Props> = (props) => {
   const [food, setFood] = useState("sushi");
 
+
   return (
     <div className="m-8">
       {/* title */}
       <h1 className="mt-32 text-6xl italic flex justify-center bg-slate-400">
-        what should i eat?
+        what should i eat? 
       </h1>
       <h5 className="text-yellow-700 font-serif text-2xl italic flex justify-center">
         (mau makan apa besok?)
       </h5>
       {/* subtitle */}
-      <h1 className="mt-8 text-4xl flex justify-center">{props.allFood.name}</h1>
+      <h1 className="mt-8 text-4xl flex justify-center">
+        {props.allFood.name}
+      </h1>
       {/* button */}
       <div className="mt-8 flex justify-center">
         <button
@@ -60,8 +63,8 @@ const Home: React.FC<Props> = (props) => {
             console.log(json);
             setFood(json.name);
           }}
-        >
-          reroll
+        > 
+          reroll 
         </button>
       </div>
       {/* image */}
