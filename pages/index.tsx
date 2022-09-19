@@ -1,11 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-
-import post from "./api/post";
-
 //prisma
-import prisma from "../lib/prisma";
+import { prisma } from "../src/lib/prisma";
 
 import Footer from "../src/components/Footer";
 

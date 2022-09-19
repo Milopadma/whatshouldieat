@@ -40,7 +40,7 @@ packages:
     resolution: {integrity: sha512-j2vJGnkopRzH+ykJ8h68wrHnEUmtK//E723jjixiAl/PPf6FhqY/vYRcMVlNydRKQjQsTsYEjpx+DZMIvnGk/g==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      core-js-pure: 3.25.1
+      core-js-pure: 3.25.2
       regenerator-runtime: 0.13.9
     dev: true
 
@@ -490,7 +490,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.4
-      caniuse-lite: 1.0.30001400
+      caniuse-lite: 1.0.30001405
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -535,8 +535,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001400
-      electron-to-chromium: 1.4.251
+      caniuse-lite: 1.0.30001405
+      electron-to-chromium: 1.4.254
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
     dev: true
@@ -558,8 +558,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /caniuse-lite/1.0.30001400:
-    resolution: {integrity: sha512-Mv659Hn65Z4LgZdJ7ge5JTVbE3rqbJaaXgW5LEI9/tOaXclfIZ8DW7D7FCWWWmWiiPS7AC48S8kf3DApSxQdgA==}
+  /caniuse-lite/1.0.30001405:
+    resolution: {integrity: sha512-lbm+F6HaYFGfjejrTlgB6IZQSZjpA1qcrjGsuvecatP93emI66a41hmQJIW+KNMhcuusgQW0R0E9qvP+Hq7eLg==}
 
   /chalk/4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
@@ -599,8 +599,8 @@ packages:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
-  /core-js-pure/3.25.1:
-    resolution: {integrity: sha512-7Fr74bliUDdeJCBMxkkIuQ4xfxn/SwrVg+HkJUAoNEXVqYLv55l6Af0dJ5Lq2YBUW9yKqSkLXaS5SYPK6MGa/A==}
+  /core-js-pure/3.25.2:
+    resolution: {integrity: sha512-ItD7YpW1cUB4jaqFLZXe1AXkyqIxz6GqPnsDV4uF4hVcWh/WAGIqSqw5p0/WdsILM0Xht9s3Koyw05R3K6RtiA==}
     requiresBuild: true
     dev: true
 
@@ -716,8 +716,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /electron-to-chromium/1.4.251:
-    resolution: {integrity: sha512-k4o4cFrWPv4SoJGGAydd07GmlRVzmeDIJ6MaEChTUjk4Dmomn189tCicSzil2oyvbPoGgg2suwPDNWq4gWRhoQ==}
+  /electron-to-chromium/1.4.254:
+    resolution: {integrity: sha512-Sh/7YsHqQYkA6ZHuHMy24e6TE4eX6KZVsZb9E/DvU1nQRIrH4BflO/4k+83tfdYvDl+MObvlqHPRICzEdC9c6Q==}
     dev: true
 
   /emoji-regex/9.2.2:
@@ -1552,7 +1552,7 @@ packages:
     dependencies:
       '@next/env': 12.3.0
       '@swc/helpers': 0.4.11
-      caniuse-lite: 1.0.30001400
+      caniuse-lite: 1.0.30001405
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
