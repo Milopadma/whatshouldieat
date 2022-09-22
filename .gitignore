@@ -5,6 +5,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/CUsersMiloPCAppDataLocalpnpmstorev3
 
 # testing
 /coverage

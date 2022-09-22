@@ -1,8 +1,13 @@
+import DropdownDaisy from "./DropdownDaisy";
+
 const Footer = () => {
   return (
     <footer className="flex justify-center">
-      <p>what is this?</p>
-      {/* dropdown menu here*/}
+      <DropdownDaisy
+        title="what is this?"
+        description="this is a food picker"
+      />
+      <button className="btn">button</button>
     </footer>
   );
 };
