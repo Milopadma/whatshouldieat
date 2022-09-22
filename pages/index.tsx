@@ -74,9 +74,19 @@ const Home: React.FC<Props> = (props) => {
     } else {
       //add the new food to the database
       addNewFood(e, newFoodLowercase);
+      //show a notification div that the food was added
+      newFoodAdded();
       //clear the text input field
       setNewFood("");
     }
+  };
+
+  const newFoodAdded = () => {
+    const notification = document.getElementById("notification");
+    notification!.style.display = "block";
+    setTimeout(() => {
+      notification!.style.display = "none";
+    }, 3000);
   };
 
   return (
@@ -114,14 +124,22 @@ const Home: React.FC<Props> = (props) => {
           unoptimized={true}
         />
       </div>
+
       {/* inputfield */}
       <h2 className="mt-32 flex justify-center">
         want to add more food to the db?
       </h2>
+      <div id="notification" style={{ display: "none" }}>
+        <h1 className="mt-8 text-l flex justify-center ">
+          <div className="border-green-700 border-4 px-9 mb-4">
+            {newFood} has been added to the database!
+          </div>
+        </h1>
+      </div>
       <div className="flex justify-center 0">
         <form onSubmit={onSubmit}>
           <input
-            className="mt-2 italic border-2 border-blue-50 rounded-md p-2"
+            className="mt-2 italic border-2 border-blue-50 rounded-md px-4"
             placeholder="food here"
             type="text"
             value={newFood}
