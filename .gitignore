@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-/CUsersMiloPCAppDataLocalpnpmstorev3
+CUsersMiloPCAppDataLocalpnpmstorev3/
 
 # testing
 /coverage
@@ -28,6 +28,8 @@ yarn-error.log*
 
 # local env files
 .env*.local
+
+.env 
 
 # vercel
 .vercel
