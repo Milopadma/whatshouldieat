@@ -6,8 +6,7 @@ import { prisma } from "../src/lib/prisma";
 
 import Footer from "../src/components/Footer";
 
-export const getStaticProps = async () => {
-  //retrieve all entries from the database
+export const getServerSideProps = async () => {
   const allFood = await prisma.food.findMany({
     where: {
       id: {
@@ -16,7 +15,6 @@ export const getStaticProps = async () => {
       },
     },
   });
-
   return {
     props: {
       allFood,
@@ -90,6 +88,7 @@ const Home: React.FC<Props> = (props) => {
   };
 
   return (
+
     <div className="m-8">
       {/* title */}
       <h1 className="mt-32 text-6xl italic flex justify-center">
@@ -132,15 +131,15 @@ const Home: React.FC<Props> = (props) => {
       <div id="notification" style={{ display: "none" }}>
         <h1 className="mt-8 text-l flex justify-center ">
           <div className="border-green-700 border-4 px-9 mb-4">
-            {newFood} has been added to the database!
+            Successfully added!
           </div>
         </h1>
       </div>
       <div className="flex justify-center 0">
         <form onSubmit={onSubmit}>
           <input
-            className="mt-2 italic border-2 border-blue-50 rounded-md px-4"
-            placeholder="food here"
+            className="m-2 italic border-2 border-blue-50 rounded-md py-2 px-4"
+            placeholder="e.g steak"
             type="text"
             value={newFood}
             onChange={(e) => setNewFood(e.target.value)}
