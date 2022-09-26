@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <link rel="icon" href={"https://roundest.t3.gg/favicon.ico"} />
+        <link rel="icon" href={imageMetaURL} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={imageMetaURL} />
