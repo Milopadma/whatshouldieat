@@ -20,7 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="twitter:image" content={imageMetaURL} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="theme-color" content="#000000" />
-
         <link
           rel="apple-touch-icon"
           sizes="180x180"
