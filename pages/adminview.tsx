@@ -77,11 +77,45 @@ const AdminView: React.FC<AdminViewProps> = ({
       console.error(error);
     }
     //on success, refetch then refresh state
+    if (type === "live") {
+      setFoodArray(foodArray.filter((food) => food.id !== id));
+    } else {
+      setstatebufferFoodArray(
+        statebufferfoodArray.filter((food) => food.id !== id)
+      );
+    }
+  };
+
+  //method to add food from buffer to live
+  const addClickHandler = async (
+    e: React.SyntheticEvent,
+    id: number,
+    type: string
+  ) => {
+    e.preventDefault();
+    //show a fake loading state
+    setFoodArray((prev) => {
+      return prev.filter((food) => food.id !== id);
+    });
+    try {
+      const body = id;
+      await fetch(`/api/${type}/post`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    //on success, refetch then refresh state
+    setstatebufferFoodArray(
+      statebufferfoodArray.filter((food) => food.id !== id)
+    );
     setFoodArray(foodArray.filter((food) => food.id !== id));
   };
 
   if (session) {
-    if (statebufferfoodArray) {
+    if (statebufferfoodArray !== undefined) {
       return (
         <>
           <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-neutral-800">
@@ -97,12 +131,22 @@ const AdminView: React.FC<AdminViewProps> = ({
                     className="flex flex-row min-w-[33vw] justify-between px-8 outline-1 outline-gray-300"
                   >
                     <p>{food.name}</p>
-                    <button
-                      className="border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out"
-                      onClick={(e) => removeClickHandler(e, food.id, "buffer")}
-                    >
-                      Remove
-                    </button>
+                    <div>
+                      <button
+                        className="border-2 border-neutral-700 text-red-900 hover:bg-red-900 hover:text-red-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out"
+                        onClick={(e) =>
+                          removeClickHandler(e, food.id, "buffer")
+                        }
+                      >
+                        Remove
+                      </button>
+                      <button
+                        className="border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out"
+                        onClick={(e) => addClickHandler(e, food.id, "live")}
+                      >
+                        Add
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
