@@ -1,6 +1,4 @@
 import React from "react";
-import { useState } from "react";
-import Image from "next/image";
 //prisma
 import { prisma } from "../src/lib/prisma";
 //nextuath
@@ -33,6 +31,23 @@ export const getServerSideProps = async () => {
 
 const AdminView: React.FC<AdminViewProps> = ({ allFoodArray }) => {
   const { data: session } = useSession();
+
+  //methods
+  const removeClickHandler = async (e: React.SyntheticEvent, id: number) => {
+    e.preventDefault();
+    try {
+      const body = id;
+      await fetch("/api/post/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    //on success
+  };
+
   if (session) {
     return (
       <>
@@ -42,7 +57,10 @@ const AdminView: React.FC<AdminViewProps> = ({ allFoodArray }) => {
             {allFoodArray.map((food) => (
               <div key={food.id} className="flex flex-row">
                 <p>{food.name}</p>
-                <button className="border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out">
+                <button
+                  className="border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out"
+                  onClick={(e) => removeClickHandler(e, food.id)}
+                >
                   Remove
                 </button>
               </div>
