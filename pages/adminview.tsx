@@ -30,14 +30,25 @@ export const getServerSideProps = async () => {
 };
 
 const AdminView: React.FC<AdminViewProps> = ({ allFoodArray }) => {
+  const [foodArray, setFoodArray] = React.useState<Food[]>(allFoodArray);
   const { data: session } = useSession();
 
+  //on component load, store all food in state
+  React.useEffect(() => {
+    setFoodArray(allFoodArray);
+  }, []);
+
   //methods
+  //method to remove food from state and DB
   const removeClickHandler = async (e: React.SyntheticEvent, id: number) => {
     e.preventDefault();
+    //show a fake loading state
+    setFoodArray((prev) => {
+      return prev.filter((food) => food.id !== id);
+    });
     try {
       const body = id;
-      await fetch("/api/post/delete", {
+      await fetch("/api/delete", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -45,7 +56,8 @@ const AdminView: React.FC<AdminViewProps> = ({ allFoodArray }) => {
     } catch (error) {
       console.error(error);
     }
-    //on success
+    //on success, refetch then refresh state
+    setFoodArray(foodArray.filter((food) => food.id !== id));
   };
 
   if (session) {
@@ -54,23 +66,25 @@ const AdminView: React.FC<AdminViewProps> = ({ allFoodArray }) => {
         <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-neutral-800">
           <div className="flex flex-col items-baseline">
             <h1 className="text-6xl">Logged in as {session.user?.name}</h1>
-            {allFoodArray.map((food) => (
-              <div key={food.id} className="flex flex-row">
-                <p>{food.name}</p>
-                <button
-                  className="border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out"
-                  onClick={(e) => removeClickHandler(e, food.id)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-
+            <h2 className="text-4xl italic mt-2 mb-8 text-neutral-600">Current Food Database View</h2>
+            <div className="grid lg:grid-cols-2 grid-cols-1">
+              {foodArray.map((food) => (
+                <div key={food.id} className="flex flex-row min-w-[33vw] justify-between px-8 outline-1 outline-gray-300">
+                  <p>{food.name}</p>
+                  <button
+                    className="border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200 py-1 px-4 rounded transition-colors duration-200 ease-in-out"
+                    onClick={(e) => removeClickHandler(e, food.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
             <button
-              className="mt-4 border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200  text-2xl py-2 px-8 rounded transition-colors duration-200 ease-in-out"
+              className="mt-8 border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200  text-2xl py-2 px-8 rounded transition-colors duration-200 ease-in-out"
               onClick={() => signOut()}
             >
-              sign out
+              Sign Out
             </button>
           </div>
         </div>

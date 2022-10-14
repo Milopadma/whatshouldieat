@@ -8,10 +8,4 @@ export default async function handle(req: any, res: any) {
     },
   });
   res.json(result);
-
-  const deletefood = await prisma.food.delete({
-    where: {
-      id: res.id,
-    },
-  });
 }
