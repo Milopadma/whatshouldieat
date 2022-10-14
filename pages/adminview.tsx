@@ -62,10 +62,6 @@ const AdminView: React.FC<AdminViewProps> = ({
     type: string
   ) => {
     e.preventDefault();
-    //show a fake loading state
-    setFoodArray((prev) => {
-      return prev.filter((food) => food.id !== id);
-    });
     try {
       const body = id;
       await fetch(`/api/${type}/delete`, {
@@ -79,7 +75,13 @@ const AdminView: React.FC<AdminViewProps> = ({
     //on success, refetch then refresh state
     if (type === "live") {
       setFoodArray(foodArray.filter((food) => food.id !== id));
+      setFoodArray((prev) => {
+        return prev.filter((food) => food.id !== id);
+      });
     } else {
+      setstatebufferFoodArray((prev) => {
+        return prev.filter((food) => food.id !== id);
+      });
       setstatebufferFoodArray(
         statebufferfoodArray.filter((food) => food.id !== id)
       );
@@ -93,10 +95,6 @@ const AdminView: React.FC<AdminViewProps> = ({
     type: string
   ) => {
     e.preventDefault();
-    //show a fake loading state
-    setFoodArray((prev) => {
-      return prev.filter((food) => food.id !== id);
-    });
     try {
       const body = id;
       await fetch(`/api/${type}/post`, {
@@ -108,10 +106,19 @@ const AdminView: React.FC<AdminViewProps> = ({
       console.error(error);
     }
     //on success, refetch then refresh state
-    setstatebufferFoodArray(
-      statebufferfoodArray.filter((food) => food.id !== id)
-    );
-    setFoodArray(foodArray.filter((food) => food.id !== id));
+    if (type === "live") {
+      setFoodArray(foodArray.filter((food) => food.id !== id));
+      setFoodArray((prev) => {
+        return prev.filter((food) => food.id !== id);
+      });
+    } else {
+      setstatebufferFoodArray((prev) => {
+        return prev.filter((food) => food.id !== id);
+      });
+      setstatebufferFoodArray(
+        statebufferfoodArray.filter((food) => food.id !== id)
+      );
+    }
   };
 
   if (session) {
