@@ -81,14 +81,13 @@ const Home: React.FC<Props> = (props) => {
 
   const newFoodAdded = () => {
     const notification = document.getElementById("notification");
-    notification!.style.display = "block";
+    notification!.style.opacity = "1";
     setTimeout(() => {
-      notification!.style.display = "none";
+      notification!.style.opacity = "0";
     }, 3000);
   };
 
   return (
-
     <div className="m-8">
       {/* title */}
       <h1 className="mt-32 text-6xl italic flex justify-center">
@@ -102,7 +101,7 @@ const Home: React.FC<Props> = (props) => {
       {/* button */}
       <div className="mt-8 flex justify-center">
         <button
-          className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-8 rounded"
+          className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-8 rounded transition-colors ease-in-out duration-300"
           onClick={async () => {
             const randomFood = showRandomFood(props.allFood);
             setFood(randomFood.name);
@@ -125,16 +124,15 @@ const Home: React.FC<Props> = (props) => {
       </div>
 
       {/* inputfield */}
-      <h2 className="mt-32 flex justify-center">
-        want to add more food to the db?
-      </h2>
-      <div id="notification" style={{ display: "none" }}>
-        <h1 className="mt-8 text-l flex justify-center ">
-          <div className="border-green-700 border-4 px-9 mb-4">
+
+      <div id="notification" style={{ opacity: "0" }} className="transition-all ease-in-out duration-300">
+        <h1 className="mt-32  text-l flex justify-center ">
+          <div className="relative bg-green-700 text-white rounded px-9 py-2 mb-4">
             Successfully added!
           </div>
         </h1>
       </div>
+      <h2 className="flex justify-center">want to add more food to the db?</h2>
       <div className="flex justify-center 0">
         <form onSubmit={onSubmit}>
           <input
@@ -145,7 +143,7 @@ const Home: React.FC<Props> = (props) => {
             onChange={(e) => setNewFood(e.target.value)}
           />
           <button
-            className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded transition-colors ease-in-out duration-300"
             onClick={onSubmit}
           >
             add food
