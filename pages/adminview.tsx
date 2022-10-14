@@ -23,11 +23,6 @@ export const getServerSideProps = async () => {
       },
     },
   });
-  return {
-    props: {
-      allFoodArray,
-    },
-  };
   const bufferFoodArray = await prisma.buffer.findMany({
     where: {
       id: {
@@ -38,6 +33,7 @@ export const getServerSideProps = async () => {
   });
   return {
     props: {
+      allFoodArray,
       bufferFoodArray,
     },
   };
@@ -48,14 +44,14 @@ const AdminView: React.FC<AdminViewProps> = ({
   bufferFoodArray,
 }) => {
   const [foodArray, setFoodArray] = React.useState<Food[]>(allFoodArray);
-  const [bufferfoodArray, setbufferFoodArray] =
-    React.useState<Food[]>(allFoodArray);
+  const [statebufferfoodArray, setstatebufferFoodArray] =
+    React.useState<Food[]>(bufferFoodArray);
   const { data: session } = useSession();
 
   //on component load, store all food in state
   React.useEffect(() => {
     setFoodArray(allFoodArray);
-    setbufferFoodArray(bufferFoodArray);
+    setstatebufferFoodArray(bufferFoodArray);
   }, []);
 
   //methods
@@ -85,7 +81,7 @@ const AdminView: React.FC<AdminViewProps> = ({
   };
 
   if (session) {
-    if (bufferfoodArray) {
+    if (statebufferfoodArray) {
       return (
         <>
           <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-neutral-800">
@@ -95,7 +91,7 @@ const AdminView: React.FC<AdminViewProps> = ({
                 Buffer Food Database View
               </h2>
               <div className="grid lg:grid-cols-2 grid-cols-1">
-                {bufferfoodArray.map((food) => (
+                {statebufferfoodArray.map((food) => (
                   <div
                     key={food.id}
                     className="flex flex-row min-w-[33vw] justify-between px-8 outline-1 outline-gray-300"
