@@ -1,9 +1,14 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
+//nextauth
+import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
 //global css
 import "../styles/globals.css";
-
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) {
   const title = "whatshouldieat";
   const description = "well, what should i eat?";
   const imageMetaURL = "../src/resources/q.png";
@@ -45,7 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta name="application-name" content="first world problems" />
       </Head>
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 }

@@ -1,10 +1,10 @@
-import { prisma } from "../../../src/lib/prisma";
+import { prisma } from "../../../../src/lib/prisma";
 
 export default async function handle(req: any, res: any) {
-  const food = req.body;
+  const newFood = req.body;
   const result = await prisma.food.create({
     data: {
-      name: food,
+      name: newFood,
     },
   });
   res.json(result);
