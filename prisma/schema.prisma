@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
@@ -12,6 +12,11 @@ datasource db {
 }
 
 model Food {
+  id   Int     @id @default(autoincrement())
+  name String?
+}
+
+model buffer {
   id   Int     @id @default(autoincrement())
   name String?
 }
