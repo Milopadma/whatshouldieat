@@ -123,6 +123,12 @@ const Home: React.FC<Props> = (props) => {
           height={400}
           className="rounded-full"
           unoptimized={true}
+          priority={true}
+          style={{ imageRendering: "pixelated" }}
+          placeholder="blur"
+          // blur data uRL
+          blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          // blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNMTAwIDUwQzUwIDUwIDUwIDAgNTAgMGMwIDAgMCA1MCA1MCA1MGg1MHYtNTB6IiBmaWxsPSIjZmZmIi8+PC9zdmc+"
         />
       </div>
 
