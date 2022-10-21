@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
+import Notification from "../src/components/Notification";
+
+var filter = require("leo-profanity");
+
 //prisma
 import { prisma } from "../src/lib/prisma";
 
@@ -40,6 +44,10 @@ const imageloader = () => {
 const Home: React.FC<Props> = (props) => {
   const [food, setFood] = useState("sushi");
   const [newFood, setNewFood] = useState("");
+  //notification
+  const [notifIsShowing, setNotifIsShowing] = useState(false);
+  const [notifMessage, setNotifMessage] = useState("");
+  const [notifType, setNotifType] = useState("");
 
   const addNewFood = async (e: React.SyntheticEvent, newFood: string) => {
     e.preventDefault();
@@ -70,35 +78,28 @@ const Home: React.FC<Props> = (props) => {
         "This food is already in the database or you didn't enter anything or you entered a number."
       );
     } else {
-      //check if the text input matches with the profanity.txt and if it does, alert the user
-      fetch("/api/profanity/check", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newFoodLowercase),
-      }).then((res) => {
-        if (res.status === 200) {
-          alert("This food is not allowed.");
-        } else {
-          addNewFood(e, newFoodLowercase);
-          newFoodAdded();
-          setNewFood("");
-        }
-      });
-
-      //add the new food to the database
-      addNewFood(e, newFoodLowercase);
-      //show a notification div that the food was added
-      newFoodAdded();
-      //clear the text input field
-      setNewFood("");
+      //check if the food is a bad word
+      const filtered = filter.clean(newFoodLowercase);
+      console.log(filtered);
+      if (filtered !== newFoodLowercase) {
+        showNotification("error", "This is not even food, lmao nice try.");
+      } else {
+        //add the new food to the database
+        addNewFood(e, newFoodLowercase);
+        //show a notification div that the food was added
+        showNotification("success", "Food added.");
+        //clear the text input field
+        setNewFood("");
+      }
     }
   };
 
-  const newFoodAdded = () => {
-    const notification = document.getElementById("notification");
-    notification!.style.opacity = "1";
+  const showNotification = (type: string, message: string) => {
+    setNotifMessage(message);
+    setNotifType(type);
+    setNotifIsShowing(true);
     setTimeout(() => {
-      notification!.style.opacity = "0";
+      setNotifIsShowing(false);
     }, 3000);
   };
 
@@ -147,19 +148,12 @@ const Home: React.FC<Props> = (props) => {
         />
       </div>
 
-      {/* inputfield */}
+      <Notification
+        message={notifMessage}
+        type={notifType}
+        isShowing={notifIsShowing}
+      />
 
-      <div
-        id="notification"
-        style={{ opacity: "0" }}
-        className="transition-all ease-in-out duration-300"
-      >
-        <h1 className="mt-32  text-l flex justify-center ">
-          <div className="relative bg-green-700 text-white rounded px-9 py-2 mb-4">
-            Successfully added!
-          </div>
-        </h1>
-      </div>
       <h2 className="flex justify-center">want to add more food to the db?</h2>
       <div className="">
         <form onSubmit={onSubmit} className="flex justify-center items-center ">
@@ -179,7 +173,6 @@ const Home: React.FC<Props> = (props) => {
         </form>
       </div>
       <div className="mt-2 flex justify-center"></div>
-      <Footer></Footer>
     </div>
   );
 };
