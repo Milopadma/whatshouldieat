@@ -70,6 +70,21 @@ const Home: React.FC<Props> = (props) => {
         "This food is already in the database or you didn't enter anything or you entered a number."
       );
     } else {
+      //check if the text input matches with the profanity.txt and if it does, alert the user
+      fetch("/api/profanity/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newFoodLowercase),
+      }).then((res) => {
+        if (res.status === 200) {
+          alert("This food is not allowed.");
+        } else {
+          addNewFood(e, newFoodLowercase);
+          newFoodAdded();
+          setNewFood("");
+        }
+      });
+
       //add the new food to the database
       addNewFood(e, newFoodLowercase);
       //show a notification div that the food was added
