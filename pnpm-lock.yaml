@@ -8,6 +8,7 @@ specifiers:
   autoprefixer: ^10.4.11
   eslint: 8.23.1
   eslint-config-next: 12.3.0
+  leo-profanity: ^1.6.1
   next: 12.3.0
   next-auth: ^4.14.0
   postcss: ^8.4.16
@@ -19,6 +20,7 @@ specifiers:
 
 dependencies:
   '@prisma/client': 4.3.1_prisma@4.3.1
+  leo-profanity: 1.6.1
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.14.0_c3hne4hwj64hb7tofigd3bvkji
   react: 18.2.0
@@ -33,7 +35,7 @@ devDependencies:
   eslint-config-next: 12.3.0_irgkl5vooow2ydyo6aokmferha
   postcss: 8.4.16
   prisma: 4.3.1
-  tailwindcss: 3.1.8_postcss@8.4.16
+  tailwindcss: 3.1.8
   typescript: 4.8.3
 
 packages:
@@ -1131,6 +1133,12 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
+  /french-badwords-list/1.0.6:
+    resolution: {integrity: sha512-a0H47H8OkyT/8xoYABxKbzOTgETsnjecYP/9bAI8mnI3sTlUm9MO5Wm8Spsj5gQSp4Uqpu0UqGhaJqtuUnTNyQ==}
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /fs.realpath/1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
@@ -1464,6 +1472,13 @@ packages:
     dependencies:
       language-subtag-registry: 0.3.22
     dev: true
+
+  /leo-profanity/1.6.1:
+    resolution: {integrity: sha512-3qD74EI62jSjk76pSiBgHZF4wDwzDeJAfCc8Yp/JAdrDvdMwZXZ0lRewKLQbePg0NJpqiNMPuoZ0JFnD4KROJg==}
+    optionalDependencies:
+      french-badwords-list: 1.0.6
+      russian-bad-words: 0.5.0
+    dev: false
 
   /levn/0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -2015,6 +2030,13 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
+  /russian-bad-words/0.5.0:
+    resolution: {integrity: sha512-euNvEYki6iYYpkNbeudW+lEMMYGEmN7EBwVF8ezlbv0bZoQpVYB7W10cCeUIGV7Ed50sJynLQ0c559q5iI0ejQ==}
+    engines: {node: '>=10'}
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /scheduler/0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
@@ -2137,12 +2159,10 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /tailwindcss/3.1.8_postcss@8.4.16:
+  /tailwindcss/3.1.8:
     resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
     engines: {node: '>=12.13.0'}
     hasBin: true
-    peerDependencies:
-      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
