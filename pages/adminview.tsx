@@ -165,18 +165,18 @@ const AdminView: React.FC<AdminViewProps> = ({
           <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-neutral-800">
             <div className="flex flex-col items-baseline">
               <h1 className="text-6xl">Logged in as {session.user?.name}</h1>
-              <form action="">
+              <form action="" className="mt-4">
                 <input
                   type="text"
                   name="email"
                   id="email"
                   placeholder="email"
-                  className="border-2 border-black"
+                  className="border-2 border-black p-2 rounded-md"
                   value={operatorToBeAdded}
                   onChange={(e) => setoperatorToBeAdded(e.target.value)}
                 />
                 <button
-                  className="bg-neutral-800 text-neutral-100 p-2 rounded-md"
+                  className="bg-neutral-800 text-neutral-100 p-3 rounded-md"
                   onClick={(e) => {
                     addOperatorClickHandler(e, operatorToBeAdded);
                   }}
