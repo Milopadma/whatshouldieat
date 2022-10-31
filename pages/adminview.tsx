@@ -52,7 +52,9 @@ const AdminView: React.FC<AdminViewProps> = ({
   const [statebufferfoodArray, setstatebufferFoodArray] =
     React.useState<Food[]>(bufferFoodArray);
   const { data: session } = useSession();
-
+  const isOperator = operators.some((operator) => {
+    return operator.name === session?.user?.name;
+  });
   //on component load, store all food in state
   React.useEffect(() => {
     setFoodArray(allFoodArray);
@@ -135,7 +137,7 @@ const AdminView: React.FC<AdminViewProps> = ({
     }
   };
 
-  if (session) {
+  if (isOperator && session) {
     if (statebufferfoodArray !== undefined) {
       return (
         <>
