@@ -1,6 +1,7 @@
 import React from "react";
 //prisma
 import { prisma } from "../src/lib/prisma";
+import { operator } from "@prisma/client";
 //nextuath
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -12,6 +13,7 @@ interface Food {
 interface AdminViewProps {
   allFoodArray: Food[];
   bufferFoodArray: Food[];
+  operators: operator[];
 }
 
 export const getServerSideProps = async () => {
@@ -31,6 +33,8 @@ export const getServerSideProps = async () => {
       },
     },
   });
+  //get the list of admins
+  const operators = await prisma.operator.findMany({});
   return {
     props: {
       allFoodArray,
@@ -42,6 +46,7 @@ export const getServerSideProps = async () => {
 const AdminView: React.FC<AdminViewProps> = ({
   allFoodArray,
   bufferFoodArray,
+  operators,
 }) => {
   const [foodArray, setFoodArray] = React.useState<Food[]>(allFoodArray);
   const [statebufferfoodArray, setstatebufferFoodArray] =
@@ -52,6 +57,15 @@ const AdminView: React.FC<AdminViewProps> = ({
   React.useEffect(() => {
     setFoodArray(allFoodArray);
     setstatebufferFoodArray(bufferFoodArray);
+    //check if current user session username exists in operator array
+    //if not, redirect to home page
+    if (session && session.user) {
+      const username = session.user.name;
+      const operator = operators.find((operator) => operator.name === username);
+      if (!operator) {
+        window.location.href = "/";
+      }
+    }
   }, []);
 
   //methods
