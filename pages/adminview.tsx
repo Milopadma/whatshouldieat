@@ -39,6 +39,7 @@ export const getServerSideProps = async () => {
     props: {
       allFoodArray,
       bufferFoodArray,
+      operators,
     },
   };
 };
