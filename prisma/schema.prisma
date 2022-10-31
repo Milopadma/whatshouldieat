@@ -22,5 +22,5 @@ model buffer {
 }
 
 model operator {
-  name String @unique @default(cuid())
+  email String @unique @default(cuid())
 }
