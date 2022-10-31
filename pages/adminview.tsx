@@ -50,6 +50,7 @@ const AdminView: React.FC<AdminViewProps> = ({
   operators,
 }) => {
   const [foodArray, setFoodArray] = React.useState<Food[]>(allFoodArray);
+  const [operatorToBeAdded, setoperatorToBeAdded] = React.useState("");
   const [statebufferfoodArray, setstatebufferFoodArray] =
     React.useState<Food[]>(bufferFoodArray);
   const { data: session } = useSession();
@@ -64,7 +65,9 @@ const AdminView: React.FC<AdminViewProps> = ({
     //if not, redirect to home page
     if (session && session.user) {
       const username = session.user.name;
-      const operator = operators.find((operator) => operator.email === username);
+      const operator = operators.find(
+        (operator) => operator.email === username
+      );
       if (!operator) {
         window.location.href = "/";
       }
@@ -138,6 +141,23 @@ const AdminView: React.FC<AdminViewProps> = ({
     }
   };
 
+  const addOperatorClickHandler = async (
+    e: React.SyntheticEvent,
+    email: string
+  ) => {
+    e.preventDefault();
+    try {
+      const body = email;
+      await fetch(`/api/operator/post`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (isOperator && session) {
     if (statebufferfoodArray !== undefined) {
       return (
@@ -145,6 +165,25 @@ const AdminView: React.FC<AdminViewProps> = ({
           <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-neutral-800">
             <div className="flex flex-col items-baseline">
               <h1 className="text-6xl">Logged in as {session.user?.name}</h1>
+              <form action="">
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="email"
+                  className="border-2 border-black"
+                  value={operatorToBeAdded}
+                  onChange={(e) => setoperatorToBeAdded(e.target.value)}
+                />
+                <button
+                  className="bg-neutral-800 text-neutral-100 p-2 rounded-md"
+                  onClick={(e) => {
+                    addOperatorClickHandler(e, operatorToBeAdded);
+                  }}
+                >
+                  add operator{" "}
+                </button>
+              </form>
               <h2 className="text-4xl italic mt-2 mb-8 text-neutral-600">
                 Buffer Food Database View
               </h2>
@@ -242,6 +281,22 @@ const AdminView: React.FC<AdminViewProps> = ({
         </>
       );
     }
+  } else if (!isOperator && session) {
+    return (
+      <>
+        <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-neutral-800">
+          <div className="flex flex-col items-baseline">
+            <h1 className="text-6xl">Not an Operator</h1>
+            <button
+              className="mt-4 border-2 border-green-700 text-green-900 hover:bg-green-900 hover:text-green-200  text-2xl py-2 px-8 rounded transition-colors duration-200 ease-in-out"
+              onClick={() => signIn()}
+            >
+              sign in
+            </button>
+          </div>
+        </div>
+      </>
+    );
   }
   return (
     <>
